@@ -31,10 +31,7 @@ function error {
 }
 
 # Base raw github URL
-_raw_base="https://raw.githubusercontent.com/ej52/proxmox-scripts/main/lxc/nginx-proxy-manager"
-# Operating system
-_os_type=alpine
-_os_version=3.16
+_raw_base="https://raw.githubusercontent.com/omawnakw/proxmox-scripts/main/lxc/nginx-proxy-manager"
 # System architecture
 _arch=$(dpkg --print-architecture)
 
@@ -83,12 +80,25 @@ while [[ $# -gt 0 ]]; do
       _swap=$2
       shift
       ;;
+    --os-type)
+      _os_type=$2
+      shift
+      ;;
+    --os-ver)
+      _os_version=$2
+      shift
+      ;;
     *)
       error "Unrecognized option $1"
       ;;
   esac
   shift
 done
+
+# Operating system
+_os_type=${_os_type:-alpine}
+_os_version=${_os_version:-3.16}
+
 
 # Check user settings or set defaults
 _ctid=${_ctid:-`pvesh get /cluster/nextid`}
