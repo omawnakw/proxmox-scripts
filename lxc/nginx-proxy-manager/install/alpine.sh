@@ -17,14 +17,14 @@ touch $TEMPLOG
 log() {
   logs=$(cat $TEMPLOG | sed -e "s/34/32/g" | sed -e "s/info/success/g");
   #clear && 
-  printf "\033c\e[3J$logs\n\e[34m[info] $*\e[0m\n" | tee $TEMPLOG;
+  printf "\033c\e[3J$logs\n\e[34m[info] $*\e[0m\n" | tee -a $TEMPLOG;
 }
 runcmd() {
   LASTCMD=$(grep -n "$*" "$0" | sed "s/[[:blank:]]*runcmd//");
   if [[ "$#" -eq 1 ]]; then
-    eval "$@" 2>$TEMPERR;
+    eval "$@" 2>>$TEMPERR;
   else
-    $@ 2>$TEMPERR;
+    $@ 2>>$TEMPERR;
   fi
 }
 trapexit() {
