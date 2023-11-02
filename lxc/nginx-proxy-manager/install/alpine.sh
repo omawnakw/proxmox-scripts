@@ -180,7 +180,7 @@ cp -r global/* /app/global
 log "Building frontend"
 cd ./frontend
 export NODE_ENV=development
-runcmd curl -o yarn.lock https://raw.githubusercontent.com/omawnakw/proxmox-scripts/main/lxc/nginx-proxy-manager/yarn.lock
+runcmd wget --no-cache -qO yarn.lock https://raw.githubusercontent.com/omawnakw/proxmox-scripts/main/lxc/nginx-proxy-manager/yarn.lock
 runcmd yarn install
 runcmd yarn build
 cp -r dist/* /app/frontend
