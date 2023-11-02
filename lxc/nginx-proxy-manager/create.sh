@@ -153,6 +153,8 @@ if [ ${#_templates[@]} -eq 0 ] ; then
   _template="${_templates[-1]}"
   pveam download $_storage_template $_template &>/dev/null \
   || error "A problem occured while downloading the LXC template."
+else
+  _template="${_templates[-1]}"
 fi
 
 # Create variables for container disk
