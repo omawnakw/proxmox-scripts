@@ -41,7 +41,7 @@ trapexit() {
     printf "\e[33muncaught error occurred\n\e[0m"
   fi
   # Cleanup
-  rm -rf $TEMPDIR
+  #rm -rf $TEMPDIR
   apk del $DEVDEPS &>/dev/null
 }
 
