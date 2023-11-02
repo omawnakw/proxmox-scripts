@@ -149,11 +149,11 @@ if [ ${#_templates[@]} -eq 0 ] ; then
   mapfile -t _templates < <(pveam available -section system | sed -n "s/.*\($_os_type-$_os_version.*\)/\1/p" | sort -t - -k 2 -V)
   [ ${#_templates[@]} -eq 0 ] \
   && error "No LXC template found for $_os_type-$_os_version"
-fi
 
-_template="${_templates[-1]}"
-pveam download $_storage_template $_template &>/dev/null \
+  _template="${_templates[-1]}"
+  pveam download $_storage_template $_template &>/dev/null \
   || error "A problem occured while downloading the LXC template."
+fi
 
 # Create variables for container disk
 _storage_type=$(pvesm status -storage $_storage 2>/dev/null | awk 'NR>1 {print $2}')
