@@ -9,6 +9,10 @@ LASTCMD=""
 WGETOPT="-t 1 -T 15 -q"
 DEVDEPS="npm g++ make gcc git python3-dev musl-dev libffi-dev openssl-dev"
 NPMURL="https://github.com/NginxProxyManager/nginx-proxy-manager"
+NPMUSER=npm
+NPMGROUP=npm
+NPMHOME=/tmp/npmuserhome
+
 
 cd $TEMPDIR
 touch $TEMPLOG
@@ -203,6 +207,12 @@ fi
 cd /app
 export NODE_ENV=development
 runcmd yarn install
+
+
+# Create NPM user anf group
+log "Creating NPM user and group"
+adduser -h "$NPMHOME" -s /bin/false "$NPMUSER"
+
 
 # Create NPM service
 log "Creating NPM service"
