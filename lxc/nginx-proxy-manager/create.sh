@@ -139,7 +139,7 @@ sleep 10
 
 #Check local Alpine Templates
 info "Searching for local templates"
-mapfile -t _templates < <(pveam list $_storage_template | sed -n "s/.*\($_os_type-$_os_version.*\)/\1/p" | sort -t - -k 2 -V)
+mapfile -t _templates < <(pveam list $_storage_template | sed -n "s/.*\($_os_type-$_os_version[^ ]*\).*/\1/p" | sort -t - -k 2 -V)
 
 if [ ${#_templates[@]} -eq 0 ] ; then
   info "No local templates found, downloading latest Alpine LXC template"
