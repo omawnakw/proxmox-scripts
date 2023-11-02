@@ -211,7 +211,7 @@ runcmd yarn install
 
 # Create NPM user anf group
 log "Creating NPM user and group"
-runcmd adduser -D -h "$NPMHOME" -s /bin/false "$NPMUSER"
+runcmd 'adduser -D -h "$NPMHOME" -s /bin/false "$NPMUSER"'
 
 
 # Create NPM service
