@@ -155,6 +155,7 @@ if [ ${#_templates[@]} -eq 0 ] ; then
   || error "A problem occured while downloading the LXC template."
 else
   _template="${_templates[-1]}"
+  info "Template $_template selected"
 fi
 
 # Create variables for container disk
