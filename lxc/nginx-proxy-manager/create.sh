@@ -136,14 +136,20 @@ echo ""
 
 sleep 10
 
-# Download latest Alpine LXC template
-info "Updating LXC template list..."
-pveam update &>/dev/null
 
-info "Downloading LXC template..."
-mapfile -t _templates < <(pveam available -section system | sed -n "s/.*\($_os_type-$_os_version.*\)/\1/p" | sort -t - -k 2 -V)
-[ ${#_templates[@]} -eq 0 ] \
+#Check local Alpine Templates
+mapfile -t _templates < <(pveam list $_storage_template | sed -n "s/.*\($_os_type-$_os_version.*\)/\1/p" | sort -t - -k 2 -V)
+
+if [ ${#_templates[@]} -eq 0 ] ; then
+  info "No local templates found, downloading latest Alpine LXC template"
+  info "Updating LXC template list..."
+  pveam update &>/dev/null
+
+  info "Downloading LXC template..."
+  mapfile -t _templates < <(pveam available -section system | sed -n "s/.*\($_os_type-$_os_version.*\)/\1/p" | sort -t - -k 2 -V)
+  [ ${#_templates[@]} -eq 0 ] \
   && error "No LXC template found for $_os_type-$_os_version"
+fi
 
 _template="${_templates[-1]}"
 pveam download $_storage_template $_template &>/dev/null \
